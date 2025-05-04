@@ -1,9 +1,9 @@
-using Pathfinding;
 using System;
+using Pathfinding;
 using Unity.Behavior;
+using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
-using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "MoveToEnemy", story: "Move [soldier] to [enemy]", category: "Action", id: "46f005a50329c04113a2be3876a5f035")]
@@ -24,7 +24,7 @@ public partial class MoveToEnemyAction : Action
         if (Vector2.Distance(Enemy.Value.transform.position, Soldier.Value.transform.position) <= 3)
         {
             return Status.Success;
-            
+
         }
         return Status.Running;
     }

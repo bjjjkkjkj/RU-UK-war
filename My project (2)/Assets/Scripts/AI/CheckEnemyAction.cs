@@ -1,8 +1,8 @@
 using System;
 using Unity.Behavior;
+using Unity.Properties;
 using UnityEngine;
 using Action = Unity.Behavior.Action;
-using Unity.Properties;
 
 [Serializable, GeneratePropertyBag]
 [NodeDescription(name: "CheckEnemy", story: "Check [enemy] in [radius]", category: "Miro", id: "e386761779fa2a42b724b158d0467c0d")]

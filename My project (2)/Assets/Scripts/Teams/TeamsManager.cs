@@ -11,7 +11,7 @@ public class TeamsManager : MonoBehaviour
     }
     private IEnumerator TeamsSpawner()
     {
-        while (true) 
+        while (true)
         {
             print("спавним людей");
             foreach (TeamController team in Teams)
@@ -21,5 +21,5 @@ public class TeamsManager : MonoBehaviour
             yield return new WaitForSeconds(1);
         }
     }
-    
+
 }

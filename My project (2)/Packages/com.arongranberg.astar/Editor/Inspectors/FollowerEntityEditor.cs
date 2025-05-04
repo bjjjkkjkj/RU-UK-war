@@ -195,38 +195,49 @@ namespace Pathfinding {
 }
 #else
 using UnityEditor;
-using UnityEngine;
-using Pathfinding.ECS;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
+using UnityEngine;
 
-namespace Pathfinding {
-	// This inspector is only used if the Entities package is not installed
-	[CustomEditor(typeof(FollowerEntity), true)]
-	[CanEditMultipleObjects]
-	public class FollowerEntityEditor : EditorBase {
-		static AddRequest addRequest;
+namespace Pathfinding
+{
+    // This inspector is only used if the Entities package is not installed
+    [CustomEditor(typeof(FollowerEntity), true)]
+    [CanEditMultipleObjects]
+    public class FollowerEntityEditor : EditorBase
+    {
+        static AddRequest addRequest;
 
-		protected override void Inspector () {
-			if (addRequest != null) {
-				if (addRequest.Status == StatusCode.Success) {
-					addRequest = null;
+        protected override void Inspector()
+        {
+            if (addRequest != null)
+            {
+                if (addRequest.Status == StatusCode.Success)
+                {
+                    addRequest = null;
 
-					// If we get this far, unity did not successfully reload the assemblies.
-					// Who knows what went wrong. Quite possibly restarting Unity will resolve the issue.
-					EditorUtility.DisplayDialog("Installed Entities package", "The entities package has been installed. You may have to restart the editor for changes to take effect.", "Ok");
-				} else if (addRequest.Status == StatusCode.Failure) {
-					EditorGUILayout.HelpBox("Failed to install the Entities package. Please install it manually using the Package Manager." + (addRequest.Error != null ? "\n" + addRequest.Error.message : ""), MessageType.Error);
-				} else {
-					EditorGUILayout.HelpBox("Installing entities package...", MessageType.None);
-				}
-			} else {
-				EditorGUILayout.HelpBox("This component requires the Entities package to be installed. Please install it using the Package Manager.", MessageType.Error);
-				if (GUILayout.Button("Install entities package")) {
-					addRequest = Client.Add("com.unity.entities");
-				}
-			}
-		}
-	}
+                    // If we get this far, unity did not successfully reload the assemblies.
+                    // Who knows what went wrong. Quite possibly restarting Unity will resolve the issue.
+                    EditorUtility.DisplayDialog("Installed Entities package", "The entities package has been installed. You may have to restart the editor for changes to take effect.", "Ok");
+                }
+                else if (addRequest.Status == StatusCode.Failure)
+                {
+                    EditorGUILayout.HelpBox("Failed to install the Entities package. Please install it manually using the Package Manager." + (addRequest.Error != null ? "\n" + addRequest.Error.message : ""), MessageType.Error);
+                }
+                else
+                {
+                    EditorGUILayout.HelpBox("Installing entities package...", MessageType.None);
+                }
+            }
+            else
+            {
+                EditorGUILayout.HelpBox("This component requires the Entities package to be installed. Please install it using the Package Manager.", MessageType.Error);
+                if (GUILayout.Button("Install entities package"))
+                {
+                    addRequest = Client.Add("com.unity.entities");
+                }
+            }
+        }
+    }
 }
 #endif

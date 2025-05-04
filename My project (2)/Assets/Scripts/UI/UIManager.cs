@@ -1,4 +1,3 @@
-using Unity.AppUI.UI;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -6,12 +5,12 @@ public class UIManager : MonoBehaviour
     public GameObject[] Screens;
     void Start()
     {
-        
+
 
     }
-    public void ChangeScreen(int screenIndex,string text)
+    public void ChangeScreen(int screenIndex, string text)
     {
         print(text);
-        
+
     }
 }

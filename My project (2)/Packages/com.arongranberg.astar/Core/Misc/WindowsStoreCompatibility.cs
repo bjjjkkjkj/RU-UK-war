@@ -8,15 +8,18 @@ using TP = System.Reflection.TypeInfo;
 using TP = System.Type;
 #endif
 
-namespace Pathfinding.WindowsStore {
-	public static class WindowsStoreCompatibility {
-		public static TP GetTypeInfo (System.Type type) {
+namespace Pathfinding.WindowsStore
+{
+    public static class WindowsStoreCompatibility
+    {
+        public static TP GetTypeInfo(System.Type type)
+        {
 #if NETFX_CORE
 			return type.GetTypeInfo();
 #else
-			return type;
+            return type;
 #endif
-		}
+        }
 
 #if NETFX_CORE
 		public static void Close (this BinaryWriter stream) {
@@ -31,7 +34,7 @@ namespace Pathfinding.WindowsStore {
 			stream.Dispose();
 		}
 #endif
-	}
+    }
 
 #if NETFX_CORE
 	public delegate void ParameterizedThreadStart(System.Object ob);

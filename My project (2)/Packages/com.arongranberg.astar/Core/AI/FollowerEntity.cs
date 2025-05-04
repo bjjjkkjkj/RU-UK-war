@@ -2044,18 +2044,22 @@ namespace Pathfinding {
 	}
 }
 #else
-namespace Pathfinding {
-	public sealed partial class FollowerEntity : VersionedMonoBehaviour {
-		public void Start () {
-			UnityEngine.Debug.LogError("The FollowerEntity component requires at least version 1.0 of the 'Entities' package to be installed. You can install it using the Unity package manager.");
-		}
+namespace Pathfinding
+{
+    public sealed partial class FollowerEntity : VersionedMonoBehaviour
+    {
+        public void Start()
+        {
+            UnityEngine.Debug.LogError("The FollowerEntity component requires at least version 1.0 of the 'Entities' package to be installed. You can install it using the Unity package manager.");
+        }
 
-		protected override void OnUpgradeSerializedData (ref Serialization.Migrations migrations, bool unityThread) {
-			// Since most of the code for this component is stripped out, we should just preserve the current state,
-			// and not try to migrate anything.
-			// If we don't do this, then the base code will log an error about an unknown migration already being done.
-			migrations.IgnoreMigrationAttempt();
-		}
-	}
+        protected override void OnUpgradeSerializedData(ref Serialization.Migrations migrations, bool unityThread)
+        {
+            // Since most of the code for this component is stripped out, we should just preserve the current state,
+            // and not try to migrate anything.
+            // If we don't do this, then the base code will log an error about an unknown migration already being done.
+            migrations.IgnoreMigrationAttempt();
+        }
+    }
 }
 #endif

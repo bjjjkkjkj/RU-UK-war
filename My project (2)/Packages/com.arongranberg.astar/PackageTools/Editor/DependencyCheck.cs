@@ -1,19 +1,23 @@
 // Disable the warning: "Field 'DependencyCheck.Dependency.name' is never assigned to, and will always have its default value null"
 #pragma warning disable 649
-using UnityEditor;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
-namespace Pathfinding.Util {
-	[InitializeOnLoad]
-	static class DependencyCheck {
-		struct Dependency {
-			public string name;
-			public string version;
-		}
+namespace Pathfinding.Util
+{
+    [InitializeOnLoad]
+    static class DependencyCheck
+    {
+        struct Dependency
+        {
+            public string name;
+            public string version;
+        }
 
-		static DependencyCheck() {
-			var missingDependencies = new Dependency[] {
+        static DependencyCheck()
+        {
+            var missingDependencies = new Dependency[] {
 #if !MODULE_BURST
 				new Dependency {
 					name = "com.unity.burst",
@@ -40,27 +44,31 @@ namespace Pathfinding.Util {
 				// #endif
 			};
 
-			if (missingDependencies.Length > 0) {
-				string missing = string.Join(", ", missingDependencies.Select(p => p.name + " (" + p.version + ")"));
-				bool res = EditorUtility.DisplayDialog("Missing dependencies", "The packages " + missing + " are required by the A* Pathfinding Project but they are not installed, or the installed versions are too old. Do you want to install the latest versions of the packages?", "Ok", "Cancel");
-				if (res) {
-					foreach (var dep in missingDependencies) {
-						UnityEditor.PackageManager.Client.Add(dep.name);
-					}
-				}
-			}
+            if (missingDependencies.Length > 0)
+            {
+                string missing = string.Join(", ", missingDependencies.Select(p => p.name + " (" + p.version + ")"));
+                bool res = EditorUtility.DisplayDialog("Missing dependencies", "The packages " + missing + " are required by the A* Pathfinding Project but they are not installed, or the installed versions are too old. Do you want to install the latest versions of the packages?", "Ok", "Cancel");
+                if (res)
+                {
+                    foreach (var dep in missingDependencies)
+                    {
+                        UnityEditor.PackageManager.Client.Add(dep.name);
+                    }
+                }
+            }
 
-			// E.g. 2023.3.0b8
-			var v = Application.unityVersion.Split('.');
-			UnityEngine.Assertions.Assert.IsTrue(v.Length >= 3, "Unity version string is not in the expected format");
-			var major = int.Parse(v[0]);
-			var minor = int.Parse(v[1]);
-			// Filter out non-digits from v[2]
-			v[2] = new string(v[2].TakeWhile(char.IsDigit).ToArray());
-			var patch = int.Parse(v[2]);
-			if (major == 2022 && minor == 3 && patch < 21) {
-				Debug.LogError("This version of Unity has a bug which causes components in the A* Pathfinding Project to randomly stop working. Please update to unity 2022.3.21 or later.");
-			}
-		}
-	}
+            // E.g. 2023.3.0b8
+            var v = Application.unityVersion.Split('.');
+            UnityEngine.Assertions.Assert.IsTrue(v.Length >= 3, "Unity version string is not in the expected format");
+            var major = int.Parse(v[0]);
+            var minor = int.Parse(v[1]);
+            // Filter out non-digits from v[2]
+            v[2] = new string(v[2].TakeWhile(char.IsDigit).ToArray());
+            var patch = int.Parse(v[2]);
+            if (major == 2022 && minor == 3 && patch < 21)
+            {
+                Debug.LogError("This version of Unity has a bug which causes components in the A* Pathfinding Project to randomly stop working. Please update to unity 2022.3.21 or later.");
+            }
+        }
+    }
 }
